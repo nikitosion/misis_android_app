@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.misisapp.ui.schedule.ScheduleFragment"
+        android:label="@string/title_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_navigation_schedule_to_navgiation_lesson_details"
+            app:destination="@id/navgiation_lesson_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_group"
+        android:name="com.example.misisapp.ui.group.GroupFragment"
+        android:label="@string/title_group"
+        tools:layout="@layout/fragment_group"/>
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.misisapp.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.misisapp.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_organizations"
+        android:name="com.example.misisapp.ui.organizations.OrganizationsFragment"
+        android:label="@string/title_organizations"
+        tools:layout="@layout/fragment_organizations" />
+    <fragment
+        android:id="@+id/navgiation_lesson_details"
+        android:name="com.example.misisapp.ui.schedule.LessonDetails"
+        android:label="@string/title_schedule"
+        tools:layout="@layout/fragment_lesson_details">
+        <argument
+            android:name="currentLesson"
+            app:argType="com.example.misisapp.ui.schedule.LessonScheduleItem" />
+        <argument
+            android:name="nextLessons"
+            app:argType="com.example.misisapp.ui.schedule.LessonScheduleItem[]" />
+        <action
+            android:id="@+id/action_navgiation_lesson_details_to_navigation_schedule"
+            app:destination="@id/navigation_schedule" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.misisapp.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_schedule"
+            app:destination="@id/navigation_schedule"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_recoverPasswordFragment"
+            app:destination="@id/recoverPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recoverPasswordFragment"
+        android:name="com.example.misisapp.ui.ui.login.RecoverPasswordFragment"
+        android:label="RecoverPasswordFragment"
+        tools:layout="@layout/fragment_recover_password">
+        <action
+            android:id="@+id/action_recoverPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

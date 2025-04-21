@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_schedule"
+        android:icon="@drawable/ic_schedule_black_35dp"
+        android:title="@string/title_schedule" />
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_black_35dp"
+        android:title="@string/title_search" />
+
+    <item
+        android:id="@+id/navigation_organizations"
+        android:icon="@drawable/ic_organizations_35dp"
+        android:title="@string/title_organizations" />
+    <item
+        android:id="@+id/navigation_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_group_35dp"
+        android:title="@string/title_group" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/ic_profile_35dp"
+        android:title="@string/title_profile" />
+
+</menu>
