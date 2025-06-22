@@ -1,4 +1,4 @@
-package com.example.misisapp.ui.data
+package com.example.misisapp.ui.login.data
 
 /**
  * A generic class that holds a value with its loading status.

@@ -17,12 +17,12 @@ def API_URL = properties.getProperty("api.url")
 
 android {
     namespace 'com.example.misisapp'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.example.misisapp"
         minSdk 28
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -60,6 +60,7 @@ dependencies {
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
     implementation libs.androidx.annotation
+    implementation libs.skeleton.layout
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core

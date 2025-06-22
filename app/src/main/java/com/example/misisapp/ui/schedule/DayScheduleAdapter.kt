@@ -13,7 +13,7 @@ import java.time.ZoneId
 import java.time.format.TextStyle
 import java.util.Locale
 
-class DayScheduleAdapter(private val days: List<DayScheduleItem>, private val onChildClick: (currentLesson: LessonScheduleItem, nextLessons: Array<LessonScheduleItem>) -> Unit) : RecyclerView.Adapter<DayScheduleAdapter.DayViewHolder>() {
+class DayScheduleAdapter(private var days: List<DayScheduleItem>, private val onChildClick: (currentLesson: LessonScheduleItem, nextLessons: Array<LessonScheduleItem>) -> Unit) : RecyclerView.Adapter<DayScheduleAdapter.DayViewHolder>() {
 
     class DayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dayAndWeekDay: TextView = itemView.findViewById(R.id.day_schedule_date)
@@ -48,6 +48,11 @@ class DayScheduleAdapter(private val days: List<DayScheduleItem>, private val on
             layoutManager = LinearLayoutManager(context)
             adapter = LessonScheduleAdapter(day.lessons, onChildClick)
         }
+    }
+
+    fun updateData(newItems: List<DayScheduleItem>) {
+        days = newItems
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = days.size
