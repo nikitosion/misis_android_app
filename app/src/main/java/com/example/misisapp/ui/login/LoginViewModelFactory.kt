@@ -3,8 +3,8 @@ package com.example.misisapp.ui.login
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.misisapp.ui.data.LoginDataSource
-import com.example.misisapp.ui.data.LoginRepository
+import com.example.misisapp.ui.login.data.LoginDataSource
+import com.example.misisapp.ui.login.data.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

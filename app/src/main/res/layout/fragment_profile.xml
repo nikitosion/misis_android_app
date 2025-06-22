@@ -9,90 +9,102 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/profile_info_area"
+            <com.faltenreich.skeletonlayout.SkeletonLayout
+                android:id="@+id/skeletonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@drawable/day_schedule_item_background"
-                android:orientation="horizontal"
-                android:padding="15dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="2"
-                    android:background="@drawable/lesson_number_background"
-                    android:src="@drawable/ic_image_35" />
+                app:maskCornerRadius="15dp"
+                >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/profile_info_area"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:orientation="vertical">
+                    android:layout_margin="15dp"
+                    android:background="@drawable/day_schedule_item_background"
+                    android:orientation="horizontal"
+                    android:padding="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/course_group_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2 курс, БИВТ-23-9"
-                        android:textAllCaps="true"
-                        android:textColor="@color/darker_grey"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="Студентов Студент Студентович"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/lesson_number_background"
+                        android:src="@drawable/ic_image_35" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/lesson_number_background"
-                        android:gravity="center"
-                        android:padding="7dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginRight="10dp"
-                            android:src="@drawable/ic_content_copy_35" />
+                        android:layout_weight="4"
+                        android:paddingStart="10dp"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/email"
+                            android:id="@+id/course_group_info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="m#########@misis.ru" />
-                    </LinearLayout>
-                </LinearLayout>
+                            android:textAllCaps="true"
+                            android:textColor="@color/darker_grey"
+                            android:textStyle="bold"
+                            tools:text="2 курс, БИВТ-23-9" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_mode_edit_35" />
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            tools:text="Студентов Студент Студентович" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/lesson_number_background"
+                            android:gravity="center"
+                            android:padding="7dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/ic_content_copy_35" />
+
+                            <TextView
+                                android:id="@+id/email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minWidth="100dp"
+                                tools:text="m######@misis.ru" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_mode_edit_35" />
+                </LinearLayout>
+            </com.faltenreich.skeletonlayout.SkeletonLayout>
 
             <LinearLayout
                 android:id="@+id/grades_attendance"
@@ -113,11 +125,11 @@
                     app:tint="@color/main_blue" />
 
                 <TextView
-                    android:textFontWeight="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Оценки и посещаемость"
+                    android:textFontWeight="500"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -140,11 +152,11 @@
                     app:tint="@color/main_blue" />
 
                 <TextView
-                    android:textFontWeight="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Договоры и платежи"
+                    android:textFontWeight="500"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -167,11 +179,11 @@
                     app:tint="@color/main_blue" />
 
                 <TextView
-                    android:textFontWeight="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Безопасность"
+                    android:textFontWeight="500"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -194,11 +206,11 @@
                     app:tint="@color/main_blue" />
 
                 <TextView
-                    android:textFontWeight="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Оформление"
+                    android:textFontWeight="500"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -221,11 +233,11 @@
                     app:tint="@color/main_blue" />
 
                 <TextView
-                    android:textFontWeight="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Настройки"
+                    android:textFontWeight="500"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -248,11 +260,11 @@
                     app:tint="@color/main_blue" />
 
                 <TextView
-                    android:textFontWeight="500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="О приложении"
+                    android:textFontWeight="500"
                     android:textSize="16dp" />
             </LinearLayout>
         </LinearLayout>

@@ -1,8 +1,9 @@
-package com.example.misisapp.ui.data
+package com.example.misisapp.ui.login.data
 
 import android.content.Context
+import android.util.Log
 import com.example.misisapp.BuildConfig
-import com.example.misisapp.ui.data.model.LoggedInUser
+import com.example.misisapp.ui.login.data.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.FormBody
@@ -22,6 +23,7 @@ class LoginDataSource (private val context: Context) {
     private val client = OkHttpClient()
 
     suspend fun loadUserFromToken(): Result<LoggedInUser> = withContext(Dispatchers.IO) {
+        Thread.sleep(3000)
         val prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
         val accessToken = prefs.getString("access_token", null)
         val tokenType = prefs.getString("token_type", null)
@@ -30,7 +32,7 @@ class LoginDataSource (private val context: Context) {
             return@withContext Result.Error(IOException("Token not found"))
         }
 
-        val urlUserInfo = "{$API_URL}/auth/me"
+        val urlUserInfo = "$API_URL/auth/me"
 
         val requestUserInfo = Request.Builder()
             .url(urlUserInfo)
@@ -51,15 +53,19 @@ class LoginDataSource (private val context: Context) {
                     val groupID = userInfoJson.getString("group_id")
                     val isActive = userInfoJson.getString("is_active")
 
-                    val urlGroupInfo = "{$API_URL}/groups/$groupID"
+                    val urlGroupInfo = "$API_URL/groups/$groupID"
                     val requestGroupInfo = Request.Builder()
                         .url(urlGroupInfo)
                         .get()
                         .addHeader("Authorization", "$tokenType $accessToken")
                         .build()
-                    val groupInfoResponse = client.newCall(requestGroupInfo).execute()
+
+                    // TODO: Catch situation when group (or smth else) null or body doesn't exist
+                    /*val groupInfoResponse = client.newCall(requestGroupInfo).execute()
                     val groupInfoJson = JSONObject(groupInfoResponse.body?.string() ?: "{}")
-                    val groupName = groupInfoJson.getString("name")
+                    val groupName = groupInfoJson.getString("name")*/
+
+                    val groupName: String? = null
 
 
                     val user = LoggedInUser(userID, fullName, email, role, groupName, isActive.toBoolean(), username)
@@ -74,7 +80,9 @@ class LoginDataSource (private val context: Context) {
     }
 
     suspend fun fetchUserInfo(tokenType: String, accessToken: String): Result<LoggedInUser> = withContext(Dispatchers.IO) {
-        val url = "{$API_URL}/auth/me"
+        val url = "$API_URL/auth/me"
+
+        Log.d("LoginFragment", "$tokenType $accessToken")
 
         val request = Request.Builder()
             .url(url)
@@ -104,12 +112,15 @@ class LoginDataSource (private val context: Context) {
 
     suspend fun login(username: String, password: String): Result<LoggedInUser> = withContext(
         Dispatchers.IO) {
-        val urlToken = "{$API_URL}/auth/token"
+
+        val urlToken = "$API_URL/auth/token"
 
         val formBody = FormBody.Builder()
             .add("username", username)
             .add("password", password)
             .build()
+
+        Log.d("LoginData", urlToken)
 
         val tokenRequest = Request.Builder().url(urlToken).post(formBody).build()
 
@@ -139,6 +150,6 @@ class LoginDataSource (private val context: Context) {
     }
 
     fun logout() {
-        // TODO: revoke authentication
+        context.deleteSharedPreferences("auth_prefs")
     }
 }

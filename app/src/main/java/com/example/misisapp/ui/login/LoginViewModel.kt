@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.misisapp.R
-import com.example.misisapp.ui.data.LoginRepository
-import com.example.misisapp.ui.data.Result
+import com.example.misisapp.ui.login.data.LoginRepository
+import com.example.misisapp.ui.login.data.Result
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -15,6 +15,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
+
+    suspend fun check() {
+        val result = loginRepository.check()
+
+        if (result is Result.Success) {
+            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
+        } else {
+            _loginResult.value = LoginResult(error = R.string.check_failed)
+        }
+    }
 
     suspend fun login(username: String, password: String) {
         val result = loginRepository.login(username, password)

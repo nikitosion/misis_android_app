@@ -1,9 +1,11 @@
 package com.example.misisapp
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -11,11 +13,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.misisapp.databinding.ActivityMainBinding
+import com.example.misisapp.ui.shared_view_models.MainActivityLoginViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    val mainActivityLoginViewModel: MainActivityLoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.app_bar_calendar_button -> {
+            showDatePickerDialog()
             true
         }
         android.R.id.home -> {
@@ -88,5 +94,24 @@ class MainActivity : AppCompatActivity() {
         else -> {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        // Создаём диалог выбора даты
+        val datePickerDialog = DatePickerDialog(
+            this, // или requireContext() во фрагменте
+            { _, selectedYear, selectedMonth, selectedDay ->
+                // Обработка выбранной даты
+                mainActivityLoginViewModel.setSelectedWeekByNumbers(selectedDay, selectedMonth, selectedYear)
+            },
+            year, month, day
+        )
+
+        datePickerDialog.show()
     }
 }

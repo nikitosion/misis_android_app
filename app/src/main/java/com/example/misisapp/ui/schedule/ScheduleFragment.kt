@@ -1,16 +1,20 @@
 package com.example.misisapp.ui.schedule
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.misisapp.R
 import com.example.misisapp.databinding.FragmentScheduleBinding
+import com.example.misisapp.ui.shared_view_models.MainActivityLoginViewModel
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class ScheduleFragment : Fragment() {
@@ -23,6 +27,8 @@ class ScheduleFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var dayAdapter: DayScheduleAdapter
+
+    val mainActivityLoginViewModel: MainActivityLoginViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +52,18 @@ class ScheduleFragment : Fragment() {
 
         val exampleData = createExampleData()
 
-        dayAdapter = DayScheduleAdapter(exampleData) { currentLesson, nextLessons ->
+        val calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+
+        mainActivityLoginViewModel.setSelectedWeekByNumbers(day, month, year)
+        val startD = mainActivityLoginViewModel.selectedWeek.value?.first
+        val endD = mainActivityLoginViewModel.selectedWeek.value?.second
+
+        var filteredData = exampleData.filter { it.date in startD!!..endD!! }
+
+        dayAdapter = DayScheduleAdapter(filteredData) { currentLesson, nextLessons ->
             val action =
                 ScheduleFragmentDirections.actionNavigationScheduleToNavgiationLessonDetails(
                     currentLesson,
@@ -54,6 +71,12 @@ class ScheduleFragment : Fragment() {
                 )
 
             view.findNavController().navigate(action)
+        }
+
+        mainActivityLoginViewModel.selectedWeek.observe(viewLifecycleOwner) { (start, end) ->
+            filteredData = exampleData.filter { it.date in start..end }
+            Log.d("ScheduleFragment", "${exampleData[8].date} | $start | ${(exampleData[8].date in start..end)}")
+            dayAdapter.updateData(filteredData)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -327,6 +350,240 @@ class ScheduleFragment : Fragment() {
                         address = "Корпус 1, ул. Программирования, 5",
                         link = "https://example.com/programming-seminar",
                         comment = "Подготовить отчет по проекту"
+                    )
+                )
+            ),
+            DayScheduleItem(
+                date = dateFormat.parse("23.06.2025 00:00")!!,
+                weekday = "Понедельник",
+                lessons = listOf(
+                    LessonScheduleItem(
+                        date = dateFormat.parse("23.06.2025 10:50")!!,
+                        subject = "Теоретические основы проектирования и оптимизации алгоритмов обработки больших данных",
+                        teacher = "Иванов И.И.",
+                        groups = listOf("Группа 101"),
+                        lessonType = "Лекция",
+                        auditorium = "Ауд. 305",
+                        address = "Корпус 1, ул. Математики, 1",
+                        link = "https://example.com/math",
+                        comment = "Прочитать главы 1-3"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("23.06.2025 12:40")!!,
+                        subject = "Моделирование, анализ и оптимизация распределённых вычислительных систем",
+                        teacher = "Петров П.П.",
+                        groups = listOf("Группа 102"),
+                        lessonType = "Практическое занятие",
+                        auditorium = "Ауд. 202",
+                        address = "Корпус 2, ул. Науки, 2",
+                        link = "https://example.com/physics",
+                        comment = "Подготовить лабораторную работу"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("23.06.2025 14:30")!!,
+                        subject = "Методы и алгоритмы интеллектуальной обработки многомерных данных в реальном времени",
+                        teacher = "Смирнова С.С.",
+                        groups = listOf("Группа 103"),
+                        lessonType = "Семинар",
+                        auditorium = "Ауд. 104",
+                        address = "Корпус 1, ул. Историков, 4",
+                        link = "https://example.com/history",
+                        comment = "Прочитать параграф 5"
+                    )
+                )
+            ),
+            DayScheduleItem(
+                date = dateFormat.parse("24.06.2025 00:00")!!,
+                weekday = "Вторник",
+                lessons = listOf(
+                    LessonScheduleItem(
+                        date = dateFormat.parse("24.06.2025 10:50")!!,
+                        subject = "Теоретические основы проектирования и оптимизации алгоритмов обработки больших данных",
+                        teacher = "Иванов И.И.",
+                        groups = listOf("Группа 101"),
+                        lessonType = "Лекция",
+                        auditorium = "Ауд. 305",
+                        address = "Корпус 1, ул. Математики, 1",
+                        link = "https://example.com/math",
+                        comment = "Прочитать главы 1-3"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("24.06.2025 12:40")!!,
+                        subject = "Моделирование, анализ и оптимизация распределённых вычислительных систем",
+                        teacher = "Петров П.П.",
+                        groups = listOf("Группа 102"),
+                        lessonType = "Практическое занятие",
+                        auditorium = "Ауд. 202",
+                        address = "Корпус 2, ул. Науки, 2",
+                        link = "https://example.com/physics",
+                        comment = "Подготовить лабораторную работу"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("24.06.2025 14:30")!!,
+                        subject = "Методы и алгоритмы интеллектуальной обработки многомерных данных в реальном времени",
+                        teacher = "Смирнова С.С.",
+                        groups = listOf("Группа 103"),
+                        lessonType = "Семинар",
+                        auditorium = "Ауд. 104",
+                        address = "Корпус 1, ул. Историков, 4",
+                        link = "https://example.com/history",
+                        comment = "Прочитать параграф 5"
+                    )
+                )
+            ),
+            DayScheduleItem(
+                date = dateFormat.parse("25.06.2025 00:00")!!,
+                weekday = "Среда",
+                lessons = listOf(
+                    LessonScheduleItem(
+                        date = dateFormat.parse("25.06.2025 10:50")!!,
+                        subject = "Теоретические основы проектирования и оптимизации алгоритмов обработки больших данных",
+                        teacher = "Иванов И.И.",
+                        groups = listOf("Группа 101"),
+                        lessonType = "Лекция",
+                        auditorium = "Ауд. 305",
+                        address = "Корпус 1, ул. Математики, 1",
+                        link = "https://example.com/math",
+                        comment = "Прочитать главы 1-3"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("25.06.2025 12:40")!!,
+                        subject = "Моделирование, анализ и оптимизация распределённых вычислительных систем",
+                        teacher = "Петров П.П.",
+                        groups = listOf("Группа 102"),
+                        lessonType = "Практическое занятие",
+                        auditorium = "Ауд. 202",
+                        address = "Корпус 2, ул. Науки, 2",
+                        link = "https://example.com/physics",
+                        comment = "Подготовить лабораторную работу"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("25.06.2025 14:30")!!,
+                        subject = "Методы и алгоритмы интеллектуальной обработки многомерных данных в реальном времени",
+                        teacher = "Смирнова С.С.",
+                        groups = listOf("Группа 103"),
+                        lessonType = "Семинар",
+                        auditorium = "Ауд. 104",
+                        address = "Корпус 1, ул. Историков, 4",
+                        link = "https://example.com/history",
+                        comment = "Прочитать параграф 5"
+                    )
+                )
+            ),
+            DayScheduleItem(
+                date = dateFormat.parse("26.06.2025 00:00")!!,
+                weekday = "Четверг",
+                lessons = listOf(
+                    LessonScheduleItem(
+                        date = dateFormat.parse("26.06.2025 10:50")!!,
+                        subject = "Теоретические основы проектирования и оптимизации алгоритмов обработки больших данных",
+                        teacher = "Иванов И.И.",
+                        groups = listOf("Группа 101"),
+                        lessonType = "Лекция",
+                        auditorium = "Ауд. 305",
+                        address = "Корпус 1, ул. Математики, 1",
+                        link = "https://example.com/math",
+                        comment = "Прочитать главы 1-3"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("26.06.2025 12:40")!!,
+                        subject = "Моделирование, анализ и оптимизация распределённых вычислительных систем",
+                        teacher = "Петров П.П.",
+                        groups = listOf("Группа 102"),
+                        lessonType = "Практическое занятие",
+                        auditorium = "Ауд. 202",
+                        address = "Корпус 2, ул. Науки, 2",
+                        link = "https://example.com/physics",
+                        comment = "Подготовить лабораторную работу"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("26.06.2025 14:30")!!,
+                        subject = "Методы и алгоритмы интеллектуальной обработки многомерных данных в реальном времени",
+                        teacher = "Смирнова С.С.",
+                        groups = listOf("Группа 103"),
+                        lessonType = "Семинар",
+                        auditorium = "Ауд. 104",
+                        address = "Корпус 1, ул. Историков, 4",
+                        link = "https://example.com/history",
+                        comment = "Прочитать параграф 5"
+                    )
+                )
+            ),
+            DayScheduleItem(
+                date = dateFormat.parse("27.06.2025 00:00")!!,
+                weekday = "Пятница",
+                lessons = listOf(
+                    LessonScheduleItem(
+                        date = dateFormat.parse("27.06.2025 10:50")!!,
+                        subject = "Теоретические основы проектирования и оптимизации алгоритмов обработки больших данных",
+                        teacher = "Иванов И.И.",
+                        groups = listOf("Группа 101"),
+                        lessonType = "Лекция",
+                        auditorium = "Ауд. 305",
+                        address = "Корпус 1, ул. Математики, 1",
+                        link = "https://example.com/math",
+                        comment = "Прочитать главы 1-3"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("27.06.2025 12:40")!!,
+                        subject = "Моделирование, анализ и оптимизация распределённых вычислительных систем",
+                        teacher = "Петров П.П.",
+                        groups = listOf("Группа 102"),
+                        lessonType = "Практическое занятие",
+                        auditorium = "Ауд. 202",
+                        address = "Корпус 2, ул. Науки, 2",
+                        link = "https://example.com/physics",
+                        comment = "Подготовить лабораторную работу"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("27.06.2025 14:30")!!,
+                        subject = "Методы и алгоритмы интеллектуальной обработки многомерных данных в реальном времени",
+                        teacher = "Смирнова С.С.",
+                        groups = listOf("Группа 103"),
+                        lessonType = "Семинар",
+                        auditorium = "Ауд. 104",
+                        address = "Корпус 1, ул. Историков, 4",
+                        link = "https://example.com/history",
+                        comment = "Прочитать параграф 5"
+                    )
+                )
+            ),
+            DayScheduleItem(
+                date = dateFormat.parse("28.06.2025 00:00")!!,
+                weekday = "Суббота",
+                lessons = listOf(
+                    LessonScheduleItem(
+                        date = dateFormat.parse("28.06.2025 10:50")!!,
+                        subject = "Теоретические основы проектирования и оптимизации алгоритмов обработки больших данных",
+                        teacher = "Иванов И.И.",
+                        groups = listOf("Группа 101"),
+                        lessonType = "Лекция",
+                        auditorium = "Ауд. 305",
+                        address = "Корпус 1, ул. Математики, 1",
+                        link = "https://example.com/math",
+                        comment = "Прочитать главы 1-3"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("28.06.2025 12:40")!!,
+                        subject = "Моделирование, анализ и оптимизация распределённых вычислительных систем",
+                        teacher = "Петров П.П.",
+                        groups = listOf("Группа 102"),
+                        lessonType = "Практическое занятие",
+                        auditorium = "Ауд. 202",
+                        address = "Корпус 2, ул. Науки, 2",
+                        link = "https://example.com/physics",
+                        comment = "Подготовить лабораторную работу"
+                    ),
+                    LessonScheduleItem(
+                        date = dateFormat.parse("28.06.2025 14:30")!!,
+                        subject = "Методы и алгоритмы интеллектуальной обработки многомерных данных в реальном времени",
+                        teacher = "Смирнова С.С.",
+                        groups = listOf("Группа 103"),
+                        lessonType = "Семинар",
+                        auditorium = "Ауд. 104",
+                        address = "Корпус 1, ул. Историков, 4",
+                        link = "https://example.com/history",
+                        comment = "Прочитать параграф 5"
                     )
                 )
             )

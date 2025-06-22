@@ -1,6 +1,6 @@
-package com.example.misisapp.ui.data
+package com.example.misisapp.ui.login.data
 
-import com.example.misisapp.ui.data.model.LoggedInUser
+import com.example.misisapp.ui.login.data.model.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -32,6 +32,17 @@ class LoginRepository(val dataSource: LoginDataSource) {
         val result = dataSource.login(username, password)
         if (result is Result.Success) {
             setLoggedInUser(result.data)
+        }
+        return result
+    }
+
+    suspend fun check(): Result<LoggedInUser> {
+        val result = dataSource.loadUserFromToken()
+
+        if (result is Result.Success) {
+            setLoggedInUser(result.data)
+        } else {
+            logout()
         }
 
         return result

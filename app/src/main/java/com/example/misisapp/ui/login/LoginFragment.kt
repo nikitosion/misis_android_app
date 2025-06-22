@@ -40,6 +40,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory(requireContext().applicationContext))
             .get(LoginViewModel::class.java)
 
@@ -48,6 +49,9 @@ class LoginFragment : Fragment() {
         val loginButton = binding.login
         val recoverPassword = binding.recoverPass
         val loadingProgressBar = binding.loading
+        val authLayout = binding.authLayout
+
+
 
         loginViewModel.loginFormState.observe(
             viewLifecycleOwner,
@@ -64,6 +68,7 @@ class LoginFragment : Fragment() {
                 }
             })
 
+
         loginViewModel.loginResult.observe(
             viewLifecycleOwner,
             Observer { loginResult ->
@@ -71,12 +76,17 @@ class LoginFragment : Fragment() {
                 loadingProgressBar.visibility = View.GONE
                 loginResult.error?.let {
                     showLoginFailed(it)
+                    authLayout.visibility = View.VISIBLE
                 }
                 loginResult.success?.let {
                     findNavController().navigate(R.id.action_loginFragment_to_navigation_schedule)
                     updateUiWithUser(it)
                 }
             })
+
+        lifecycleScope.launch {
+            loginViewModel.check()
+        }
 
         val afterTextChangedListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -94,6 +104,8 @@ class LoginFragment : Fragment() {
                 )
             }
         }
+
+
         usernameEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -109,6 +121,7 @@ class LoginFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
+            authLayout.visibility = View.GONE
             loadingProgressBar.visibility = View.VISIBLE
             lifecycleScope.launch {
                 loginViewModel.login(
