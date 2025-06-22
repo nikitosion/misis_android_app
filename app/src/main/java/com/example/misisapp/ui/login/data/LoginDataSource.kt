@@ -23,6 +23,7 @@ class LoginDataSource (private val context: Context) {
     private val client = OkHttpClient()
 
     suspend fun loadUserFromToken(): Result<LoggedInUser> = withContext(Dispatchers.IO) {
+        Thread.sleep(3000)
         val prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
         val accessToken = prefs.getString("access_token", null)
         val tokenType = prefs.getString("token_type", null)
