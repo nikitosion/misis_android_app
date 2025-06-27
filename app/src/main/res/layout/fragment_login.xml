@@ -11,121 +11,130 @@
     android:paddingTop="@dimen/fragment_vertical_margin"
     android:paddingRight="@dimen/fragment_horizontal_margin"
     android:paddingBottom="@dimen/fragment_vertical_margin"
-    tools:context=".ui.login.LoginFragment">
+    tools:context=".presentation.ui.auth.LoginFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/auth_layout"
-        android:visibility="gone"
-        tools:visibility="visible"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/day_schedule_item_background">
+        android:background="@drawable/day_schedule_item_background"
+        android:fillViewport="true">
 
-        <ImageView
-            android:id="@+id/misis_logo"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:src="@drawable/misis_logo_grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/auth_text"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/auth_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Авторизация"
-            android:textFontWeight="700"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/misis_logo" />
+            android:visibility="gone"
+            tools:visibility="visible">
 
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:autofillHints="@string/prompt_email"
-            android:drawableStart="@drawable/ic_email_24"
-            android:drawablePadding="3dp"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/auth_text" />
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:autofillHints="@string/prompt_password"
-            android:drawableStart="@drawable/ic_lock_35"
-            android:drawablePadding="3dp"
-            android:hint="@string/prompt_password"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username" />
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="40dp"
-            android:backgroundTint="@color/grey"
-            android:paddingLeft="35dp"
-            android:paddingTop="15dp"
-            android:paddingRight="35dp"
-            android:paddingBottom="15dp"
-            android:text="Вход"
-            android:textColor="@color/black"
-            android:textFontWeight="700"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp">
+            <ImageView
+                android:id="@+id/misis_logo"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:src="@drawable/misis_logo_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/forget_pass_text"
+                android:id="@+id/auth_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Забыли пароль?"
-                android:textColor="@color/main_grey"
-                android:textSize="12dp"
-                android:layout_marginEnd="5dp"/>
-
-            <TextView
-                android:id="@+id/recover_pass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recover_password"
-                android:textColor="@color/light_blue"
+                android:text="@string/auth_title_text"
                 android:textFontWeight="700"
-                android:textSize="12dp" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/misis_logo" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:autofillHints="@string/prompt_email"
+                android:drawableStart="@drawable/ic_email_24"
+                android:drawablePadding="3dp"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/auth_text"
+                app:layout_constraintWidth_max="400dp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:autofillHints="@string/prompt_password"
+                android:drawableStart="@drawable/ic_lock_35"
+                android:drawablePadding="3dp"
+                android:hint="@string/prompt_password"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email"
+                app:layout_constraintWidth_max="400dp" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="@color/grey"
+                android:paddingLeft="35dp"
+                android:paddingTop="15dp"
+                android:paddingRight="35dp"
+                android:paddingBottom="15dp"
+                android:text="@string/entry_button_text"
+                android:textColor="@color/black"
+                android:textFontWeight="700"
+                app:layout_constraintEnd_toEndOf="@id/password"
+                app:layout_constraintTop_toBottomOf="@+id/password" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginButton">
+
+                <TextView
+                    android:id="@+id/forget_pass_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="Забыли пароль?"
+                    android:textColor="@color/main_grey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/recover_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recover_password"
+                    android:textColor="@color/light_blue"
+                    android:textFontWeight="700"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
     <ProgressBar
-        android:id="@+id/loading"
+        android:id="@+id/progress_cirlce"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
@@ -133,7 +142,7 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="64dp"
+        android:indeterminateTint="@color/main_blue"
         android:visibility="visible"
-        tools:visibility="gone"
-        android:indeterminateTint="@color/main_blue"/>
+        tools:visibility="gone" />
 </LinearLayout>

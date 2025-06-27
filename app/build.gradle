@@ -9,6 +9,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.safeargs)
     alias(libs.plugins.parcelize)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt.android)
 }
 
 def Properties properties = new Properties()
@@ -38,16 +41,29 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
+
     buildFeatures {
         viewBinding true
         buildConfig true
     }
+
+    configurations.configureEach {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.squareup' && details.requested.name == 'javapoet') {
+                details.useVersion '1.13.0'
+            }
+        }
+    }
+}
+
+hilt {
+    enableAggregatingTask = false
 }
 
 dependencies {
@@ -60,9 +76,32 @@ dependencies {
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
     implementation libs.androidx.annotation
-    implementation libs.skeleton.layout
+
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
+
+    // Room + ksp
+    implementation libs.room.runtime
+    implementation libs.room.ktx
+    ksp libs.room.compiler
+
+    // Retrofit + kotlinx.serialization
+    implementation libs.retrofit
+    implementation libs.retrofit.serialization
+    implementation libs.kotlinx.serialization.json
+
+    // OkHttp
     implementation libs.okhttp3
+
+    // Skeletion
+    implementation libs.skeleton.layout
+
+    // Hilt
+    implementation libs.hilt.android
+    ksp libs.hilt.compiler
+
+    // Datastore
+    implementation libs.datastore.preferences
+    implementation libs.datastore
 }

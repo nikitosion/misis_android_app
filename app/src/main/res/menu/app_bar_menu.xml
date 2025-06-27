@@ -3,8 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/app_bar_calendar_button"
-        android:icon="@drawable/ic_calendar_month_35"
-        android:title="Calendar"
-        app:showAsAction="ifRoom"
-        android:iconTint="@color/main_blue"/>
+        android:icon="@drawable/ic_calendar_month_blue_35"
+        android:title="Календарь"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/app_bar_logout_button"
+        android:icon="@drawable/ic_logout_blue_35"
+        android:title="Выйти"
+        app:showAsAction="ifRoom"/>
 </menu>

@@ -1,86 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/navigation_login">
+
+    <action
+        android:id="@+id/action_global_to_navigation_login"
+        app:destination="@id/navigation_login"
+        app:popUpTo="@id/mobile_navigation"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"/>
 
     <fragment
         android:id="@+id/navigation_schedule"
-        android:name="com.example.misisapp.ui.schedule.ScheduleFragment"
+        android:name="com.example.misisapp.presentation.ui.schedule.ScheduleFragment"
         android:label="@string/title_schedule"
-        tools:layout="@layout/fragment_schedule" >
+        tools:layout="@layout/fragment_schedule">
         <action
             android:id="@+id/action_navigation_schedule_to_navgiation_lesson_details"
-            app:destination="@id/navgiation_lesson_details" />
+            app:destination="@id/navgiation_lesson_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_group"
-        android:name="com.example.misisapp.ui.group.GroupFragment"
+        android:name="com.example.misisapp.presentation.ui.tasks.TasksFragment"
         android:label="@string/title_group"
-        tools:layout="@layout/fragment_group"/>
+        tools:layout="@layout/fragment_group" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.misisapp.ui.search.SearchFragment"
+        android:name="com.example.misisapp.presentation.ui.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
+
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.misisapp.ui.profile.ProfileFragment"
+        android:name="com.example.misisapp.presentation.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
-            android:id="@+id/action_navigation_profile_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
+            android:id="@+id/action_navigation_profile_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/navigation_schedule"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_organizations"
-        android:name="com.example.misisapp.ui.organizations.OrganizationsFragment"
+        android:name="com.example.misisapp.presentation.ui.organizations.OrganizationsFragment"
         android:label="@string/title_organizations"
         tools:layout="@layout/fragment_organizations" />
+
     <fragment
         android:id="@+id/navgiation_lesson_details"
-        android:name="com.example.misisapp.ui.schedule.LessonDetails"
+        android:name="com.example.misisapp.presentation.ui.lessondetails.LessonDetailsFragment"
         android:label="@string/title_schedule"
         tools:layout="@layout/fragment_lesson_details">
-        <argument
-            android:name="currentLesson"
-            app:argType="com.example.misisapp.ui.schedule.LessonScheduleItem" />
-        <argument
-            android:name="nextLessons"
-            app:argType="com.example.misisapp.ui.schedule.LessonScheduleItem[]" />
+
         <action
             android:id="@+id/action_navgiation_lesson_details_to_navigation_schedule"
-            app:destination="@id/navigation_schedule" />
+            app:destination="@id/navigation_schedule"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/navgiation_lesson_details"
+            app:popUpToInclusive="true" />
 
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.misisapp.ui.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:id="@+id/navigation_login"
+        android:name="com.example.misisapp.presentation.ui.auth.LoginFragment"
+        android:label="Авторизаия"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_navigation_schedule"
             app:destination="@id/navigation_schedule"
-            app:popUpTo="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/navigation_login"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_loginFragment_to_recoverPasswordFragment"
-            app:destination="@id/recoverPasswordFragment" />
+            android:id="@+id/action_navigation_login_to_navigation_recover_password"
+            app:destination="@id/navigation_recover_password"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/navigation_login"
+            app:popUpToInclusive="false"
+            />
     </fragment>
     <fragment
-        android:id="@+id/recoverPasswordFragment"
-        android:name="com.example.misisapp.ui.ui.login.RecoverPasswordFragment"
-        android:label="RecoverPasswordFragment"
+        android:id="@+id/navigation_recover_password"
+        android:name="com.example.misisapp.presentation.ui.auth.RecoverPasswordFragment"
+        android:label="Восстановление"
         tools:layout="@layout/fragment_recover_password">
         <action
             android:id="@+id/action_recoverPasswordFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/navigation_login"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/navigation_recover_password"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 </navigation>

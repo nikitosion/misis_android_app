@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/day_schedule"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:background="@drawable/day_schedule_item_background"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="250dp"
+        android:layout_height="24dp"
+        android:background="@color/darker_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- We'll include multiple lesson_schedule_item_skeleton here -->
+        <include layout="@layout/lesson_schedule_item_skeleton" />
+        <include layout="@layout/lesson_schedule_item_skeleton" />
+        <include layout="@layout/lesson_schedule_item_skeleton" />
+
+    </LinearLayout>
+
+</LinearLayout>

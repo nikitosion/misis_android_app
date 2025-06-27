@@ -20,4 +20,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back"><u>Вернуться назад</u></string>
     <string name="check_failed">Session ended. Please login.</string>
+    <string name="entry_button_text">Вход</string>
+    <string name="auth_title_text">Авторизация</string>
+    <string name="bug_report">Сообщить о проблеме</string>
+    <string name="about_app">О приложении</string>
+    <string name="settings">Настройки</string>
+    <string name="appearence">Оформление</string>
+    <string name="security">Безопасность</string>
+    <string name="contracts_payments">Договоры и платежи</string>
+    <string name="grades_attendance">Оценки и посещаемость</string>
 </resources>

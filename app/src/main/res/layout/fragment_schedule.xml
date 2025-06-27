@@ -4,15 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.schedule.ScheduleFragment">
+    tools:context=".presentation.ui.schedule.ScheduleFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/day_schedule_list"
+    <com.faltenreich.skeletonlayout.SkeletonLayout
+        android:id="@+id/skeletonLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/day_schedule_item" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/schedule_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            tools:listitem="@layout/day_item" />
+    </com.faltenreich.skeletonlayout.SkeletonLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
